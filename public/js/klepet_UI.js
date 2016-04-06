@@ -1,6 +1,9 @@
 function divElementEnostavniTekst(sporocilo) {
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
-  if (jeSmesko) {
+  var jeSlika = sporocilo.search("alt=\"slika\"") > -1;
+  if (jeSlika) {
+    return $('<div style="font-weight: bold"></div>').html(sporocilo);
+  } else if (jeSmesko) {
     sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
   } else {
@@ -14,6 +17,7 @@ function divElementHtmlTekst(sporocilo) {
 
 function procesirajVnosUporabnika(klepetApp, socket) {
   var sporocilo = $('#poslji-sporocilo').val();
+  sporocilo = dodajSlike(sporocilo);
   sporocilo = dodajSmeske(sporocilo);
   var sistemskoSporocilo;
 
@@ -129,5 +133,17 @@ function dodajSmeske(vhodnoBesedilo) {
       "<img src='http://sandbox.lavbic.net/teaching/OIS/gradivo/" +
       preslikovalnaTabela[smesko] + "' />");
   }
+  return vhodnoBesedilo;
+}
+
+function dodajSlike(vhodnoBesedilo) {
+  //var regex = "\\b(https\\:\\/\\/ | http\\:\\/\\/).+(\\.jpg|\\.png|\\.gif)\\b";
+  var regex = "(http|https)://.+(.jpg|.gif|.png)";
+  vhodnoBesedilo = vhodnoBesedilo.replace(new RegExp(regex, "gi"), function(link) {
+    var htmlElement = "<img src=\""+link+"\" alt=\"slika\" class=\"img\">";
+    console.log(htmlElement);
+    return htmlElement;
+  })
+  
   return vhodnoBesedilo;
 }
