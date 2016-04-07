@@ -137,13 +137,8 @@ function dodajSmeske(vhodnoBesedilo) {
 }
 
 function dodajSlike(vhodnoBesedilo) {
-  //var regex = "\\b(https\\:\\/\\/ | http\\:\\/\\/).+(\\.jpg|\\.png|\\.gif)\\b";
-  var regex = "(http|https)://.+(.jpg|.gif|.png)";
-  vhodnoBesedilo = vhodnoBesedilo.replace(new RegExp(regex, "gi"), function(link) {
-    var htmlElement = "<img src=\""+link+"\" alt=\"slika\" class=\"img\">";
-    console.log(htmlElement);
-    return htmlElement;
-  })
-  
+  var regex = /((http|https):\/\/[^\s]*(\.jpg|\.gif|\.png))/gi;
+  vhodnoBesedilo = vhodnoBesedilo.replace(regex, "<img src=\"$1\" alt=\"slika\" class=\"img\">");
+  //console.log(vhodnoBesedilo);
   return vhodnoBesedilo;
 }
