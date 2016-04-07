@@ -1,5 +1,5 @@
 function divElementEnostavniTekst(sporocilo) {
-  var regex = /https:\/\/www.youtube.com\/watch\?v=[^\s]*/;
+  var regex = /https:\/\/www.youtube.com\/embed\/[^\s]*/;
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
   if (regex.test(sporocilo)) {
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
@@ -137,8 +137,10 @@ function dodajSmeske(vhodnoBesedilo) {
 }
 
 function dodajYoutube(vhodnoBesedilo) {
-  var regex = /(https:\/\/www\.youtube\.com\/watch\?v=[^\s]*)/;
-  vhodnoBesedilo = vhodnoBesedilo.replace(regex, "<iframe src=\"$1\" allowfullscreen></iframe>");
+  var regex = /(https:\/\/www\.youtube\.com\/watch\?v\=[^\s]*)/;
+  var ytEmbed = /(\/watch\?v\=)/;
+  vhodnoBesedilo = vhodnoBesedilo.replace(regex, "<iframe src=\"$1\" class=\"youtube\" allowfullscreen></iframe>");
+  vhodnoBesedilo = vhodnoBesedilo.replace(ytEmbed, "/embed/")
   console.log(vhodnoBesedilo);
   return vhodnoBesedilo;
 }
