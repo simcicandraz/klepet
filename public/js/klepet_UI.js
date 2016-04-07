@@ -137,10 +137,10 @@ function dodajSmeske(vhodnoBesedilo) {
 }
 
 function dodajYoutube(vhodnoBesedilo) {
-  var regex = /(https:\/\/www\.youtube\.com\/watch\?v\=[^\s]*)/;
-  var ytEmbed = /(\/watch\?v\=)/;
+  var regex = /(https:\/\/www\.youtube\.com\/watch\?v\=[^\s]*)/gi;
+  var ytEmbed = /(\/watch\?v\=)/gi;
   vhodnoBesedilo = vhodnoBesedilo.replace(regex, "<iframe src=\"$1\" class=\"youtube\" allowfullscreen></iframe>");
   vhodnoBesedilo = vhodnoBesedilo.replace(ytEmbed, "/embed/")
-  console.log(vhodnoBesedilo);
+  //console.log(vhodnoBesedilo);
   return vhodnoBesedilo;
 }
