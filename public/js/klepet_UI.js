@@ -86,6 +86,13 @@ $(document).ready(function() {
     $('#sporocila').append(novElement);
   });
   
+  socket.on("dregljaj", function() {
+      $("#vsebina").jrumble();
+      $("#vsebina").trigger("startRumble");
+      setTimeout(function(){$("#vsebina").trigger('stopRumble');}, 1500);
+      //console.log("dreglaj se zgodi");
+  })
+  
   socket.on('kanali', function(kanali) {
     $('#seznam-kanalov').empty();
 
